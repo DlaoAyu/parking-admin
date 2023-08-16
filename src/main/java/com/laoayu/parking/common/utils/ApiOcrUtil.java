@@ -19,9 +19,9 @@ import java.util.Map;
 @Configuration
 public class ApiOcrUtil {
     //设置APPID/AK/SK
-    private static String APP_ID = "31913498";
-    private static String API_KEY ="jHLYRK68f3g5H8IeXTI19AFD";
-    private static String SECRET_KEY = "EyyzcVYAyMsXZykm20z5xhzrxFxGrsqQ";
+    private static String APP_ID = "31xxxx98";
+    private static String API_KEY ="jHLYRKxxxxxXTI19AFD";
+    private static String SECRET_KEY = "EyyzcVYAyxxxxxxxxxxxxxhzrxFxGrsqQ";
 
     public static void main(String[] args) {
 
