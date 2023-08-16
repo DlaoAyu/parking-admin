@@ -5,7 +5,7 @@
 
 # 项目前端地址
 1. Github地址 > https://github.com/DlaoAyu/parking-vue.git
-2. Gitee地址 > https://gitee.com/laoayu/parking-vue
+2. Gitee地址 > https://gitee.com/laoayu/parking-vue.git
 #### 软件架构
 软件架构说明 
     使用Spring Boot + Mybatis Plus的后端
