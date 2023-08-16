@@ -1,0 +1,71 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.laoayu.parking.system.mapper.ParkOrderMapper">
+
+    <select id="getParkOrderList" resultType="com.laoayu.parking.system.entity.ParkOrder">
+        select distinct
+        a.*, b.park_name
+        from
+            park_order a,
+            park_info b,
+            sys_user_park c,
+            sys_user d
+        <where>
+            a.park_id = b.park_id
+            AND a.del_flag = 0
+            AND a.park_id = c.park_id
+            AND c.user_id = d.user_id
+            <if test="userName != null and userName != ''">
+                and user_name = #{userName}
+            </if>
+            <if test="plateColor != null and plateColor != ''">
+                and plate_color like concat('%',#{plateColor},'%')
+            </if>
+            <if test="type != null and type != ''">
+                and a.type = #{type}
+            </if>
+            <if test="parkName != null and parkName != ''">
+                and park_name = #{parkName}
+            </if>
+        </where>
+    </select>
+
+    <select id="getByPlateNumber" resultType="com.laoayu.parking.system.entity.ParkOrder">
+        SELECT distinct
+            *
+        FROM
+            park_order
+        WHERE
+         park_id = #{parkId}
+         AND plate_num = #{plateNum}
+         AND exit_time is null
+    </select>
+    <select id="selectParkOrderByParkIdAndPlateNum" resultType="com.laoayu.parking.system.entity.ParkOrder">
+        SELECT distinct
+            *
+        FROM
+            park_order
+        WHERE
+         park_id = #{parkId}
+         AND exit_time IS NULL
+         AND plate_num = #{plateNum}
+    </select>
+    <select id="getTotalIncome" resultType="java.math.BigDecimal">
+        SELECT
+            SUM( a.park_fee )
+        FROM
+            park_order a,
+            park_info b,
+            sys_user_park c,
+            sys_user d
+        <where>
+            a.park_id = b.park_id
+            AND a.del_flag = 0
+            AND a.park_id = c.park_id
+            AND c.user_id = d.user_id
+            <if test="userName != null and userName != ''">
+                and user_name = #{userName}
+            </if>
+        </where>
+    </select>
+</mapper>

@@ -1,0 +1,50 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.laoayu.parking.system.mapper.CarInfoMapper">
+    <select id="getCarInfoList" resultType="CarInfo">
+        select
+            a.*,b.park_name
+        from
+            car_info a,
+            park_info b,
+            park_car c,
+            sys_user_park d,
+            sys_user e
+        <where>
+            a.car_id = c.car_id
+            AND c.park_id = b.park_id
+            AND b.park_id = d.park_id
+            AND d.user_id = e.user_id
+            AND a.del_flag = 0
+            <if test="belongName != null and belongName != ''">
+                and belong_name like concat('%',#{belongName},'%')
+            </if>
+            <if test="plateColor != null and plateColor != ''">
+                and plate_color like concat('%',#{plateColor},'%')
+            </if>
+            <if test="plateNum != null and plateNum != ''">
+                and plate_num like concat('%',#{belongName},'%')
+            </if>
+            <if test="userName != null and userName != ''">
+                and user_name = #{userName}
+            </if>
+
+        </where>
+    </select>
+
+    <select id="getByPlateNumber" resultType="com.laoayu.parking.system.entity.CarInfo">
+        SELECT
+            a.*
+        FROM
+            car_info a,
+            park_car b
+        WHERE
+            a.car_id = b.car_id
+            <if test="parkId != null and parkId != ''">
+                and b.park_id like concat('%',#{parkId},'%')
+            </if>
+            <if test="plateNum != null and plateNum != ''">
+                and a.plate_num like concat('%',#{plateNum},'%')
+            </if>
+    </select>
+</mapper>

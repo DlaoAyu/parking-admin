@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.laoayu.parking.system.mapper.CarScanMapper">
+
+    <select id="getCarScanList" resultType="com.laoayu.parking.system.entity.CarScan">
+        select distinct
+            a.*
+        from
+            car_scan a,
+            sys_user_park b,
+            sys_user c
+        <where>
+            a.park_id = b.park_id
+            AND b.user_id = c.user_id
+            <if test="userName != null and userName != ''">
+                and user_name = #{userName}
+            </if>
+            <if test="plateColor != null and plateColor != ''">
+                and plate_color like concat('%',#{plateColor},'%')
+            </if>
+            <if test="type != null and type != ''">
+                and type = #{type}
+            </if>
+            <if test="direction != null and direction != ''">
+                and direction = #{direction}
+            </if>
+        </where>
+    </select>
+</mapper>

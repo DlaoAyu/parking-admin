@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.laoayu.parking.system.mapper.MenuMapper">
+    <select id="getMenuListByUserId" resultType="Menu">
+        SELECT
+            distinct a.*
+        FROM
+            sys_menu a,
+            sys_role_menu b,
+            sys_user_role c
+        WHERE
+            a.menu_id = b.menu_id
+            AND b.role_id = c.role_id
+            AND c.user_id = #{userId}
+            AND a.parent_id = #{pid}
+    </select>
+</mapper>
